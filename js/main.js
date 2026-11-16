@@ -2,89 +2,37 @@
 (() => {
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 
-  /* ---------- Navegación ---------- */
+  /* ---------- Nav ---------- */
   const nav = $('#nav');
-  const onScrollNav = () => nav.classList.toggle('scrolled', scrollY > 24);
+  const onScrollNav = () => nav.classList.toggle('scrolled', scrollY > 20);
 
-  /* ---------- Revelado ---------- */
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        e.target.classList.add('in');
-        revealObserver.unobserve(e.target);
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -5% 0px' },
-  );
-  $$('[data-reveal]').forEach((el) => revealObserver.observe(el));
-
-  /* ---------- Manifiesto: palabras que se encienden con el scroll ---------- */
-  const manifesto = $('#manifesto');
-  const words = manifesto.textContent.trim().split(/\s+/);
-  manifesto.innerHTML = words.map((w) => `<span class="w">${w}</span>`).join(' ');
-  const wordEls = $$('.w', manifesto);
-  const updateManifesto = () => {
-    const r = manifesto.getBoundingClientRect();
-    const progress = clamp((innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.3));
-    const lit = Math.round(progress * wordEls.length);
-    wordEls.forEach((el, i) => el.classList.toggle('on', i < lit));
-  };
-
-  /* ---------- Contadores ---------- */
-  const countObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        countObserver.unobserve(e.target);
-        const end = +e.target.dataset.count;
-        if (reduceMotion || end < 2) return;
-        const t0 = performance.now();
-        const tick = (t) => {
-          const p = clamp((t - t0) / 1500);
-          e.target.textContent = Math.round(end * (1 - Math.pow(1 - p, 4)));
-          if (p < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      });
-    },
-    { threshold: 0.6 },
-  );
-  $$('[data-count]').forEach((el) => countObserver.observe(el));
-
-  /* ---------- Hero: parallax ---------- */
-  const heroBg = $('[data-parallax]');
-  const updateHeroParallax = () => {
-    if (scrollY > innerHeight * 1.2) return;
-    heroBg.style.transform = `translate3d(0, ${scrollY * 0.18}px, 0)`;
-  };
-
-  /* ---------- El ciclo ---------- */
-  const cicloGrid = $('#ciclo-grid');
-  if (cicloGrid) {
-    cicloGrid.innerHTML = CICLO.map(
-      (c) => `
-      <li>
-        <span class="n">${c.n}</span>
-        <span class="fase">${c.fase}</span>
-        <b>${c.titulo}</b>
-        <p>${c.desc}</p>
-      </li>`,
+  /* ---------- Pilares de negocio ---------- */
+  const pillarsEl = $('#pillars');
+  if (pillarsEl) {
+    pillarsEl.innerHTML = PILARES.map(
+      (p) => `
+      <article class="pillar">
+        <div>
+          <span class="pillar-num">${p.n}</span>
+          <h3>${p.titulo}</h3>
+          <p>${p.desc}</p>
+        </div>
+        <a href="#videos" class="pillar-link" data-goto-filter="${p.filterCat || p.cat}">
+          ${p.cta} <svg><use href="#i-arrow"/></svg>
+        </a>
+      </article>`,
     ).join('');
   }
 
-  /* ---------- Catálogo de videos ---------- */
+  /* ---------- Catalogo de videos ---------- */
   const rail = $('#rail');
   const filters = $('#filters');
-  const thumbSrc = (p) => `thumbnails/${p.file}.jpg`;
 
   rail.innerHTML = VIDEOS.map(
     (p, i) => `
-    <button class="pcard ${p.cat === 'general' ? 'pcard-hero' : ''}" data-i="${i}" data-cat="${p.cat}" aria-label="Ver video: ${p.titulo}">
-      <img src="${thumbSrc(p)}" alt="" loading="lazy">
+    <button class="pcard ${p.cat === 'general' ? 'pcard-hero' : ''}" type="button" data-i="${i}" data-cat="${p.cat}" aria-label="Ver video: ${p.titulo}">
+      <img src="thumbnails/${p.file}.jpg" alt="" loading="lazy">
       <span class="pcard-info">
         <span><small>${p.n} · ${ETAPAS[p.cat].toUpperCase()}</small><b>${p.titulo}</b></span>
         <span class="pcard-play"><svg><use href="#i-play"/></svg></span>
@@ -100,37 +48,48 @@
   filters.innerHTML = filterDefs
     .map(
       ([k, label, n]) =>
-        `<button class="filter" data-filter="${k}" aria-pressed="${k === 'all'}">${label}<small>${n}</small></button>`,
+        `<button class="filter" type="button" data-filter="${k}" aria-pressed="${k === 'all'}">${label}<small>${n}</small></button>`,
     )
     .join('');
 
   const prev = $('#rail-prev');
   const next = $('#rail-next');
   const updateArrows = () => {
+    if (!prev || !next) return;
     prev.disabled = rail.scrollLeft < 4;
     next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
   };
   const applyFilter = (cat) => {
-    $$('.filter', filters).forEach((b) => b.setAttribute('aria-pressed', b.dataset.filter === cat));
+    $$('.filter', filters).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === cat)));
     $$('.pcard', rail).forEach((c) => {
       c.hidden = !(cat === 'all' || c.dataset.cat === cat);
     });
     rail.scrollTo({ left: 0 });
     updateArrows();
   };
+
   filters.addEventListener('click', (e) => {
     const b = e.target.closest('.filter');
     if (b) applyFilter(b.dataset.filter);
   });
-  const step = () => $('.pcard:not([hidden])', rail).offsetWidth * 2 + 40;
-  prev.addEventListener('click', () => rail.scrollBy({ left: -step(), behavior: 'smooth' }));
-  next.addEventListener('click', () => rail.scrollBy({ left: step(), behavior: 'smooth' }));
+
+  $$('[data-goto-filter]').forEach((a) => {
+    a.addEventListener('click', () => applyFilter(a.dataset.gotoFilter));
+  });
+
+  const step = () => {
+    const card = $('.pcard:not([hidden])', rail);
+    return card ? card.offsetWidth * 2 + 28 : 380;
+  };
+  prev?.addEventListener('click', () => rail.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next?.addEventListener('click', () => rail.scrollBy({ left: step(), behavior: 'smooth' }));
   rail.addEventListener('scroll', updateArrows, { passive: true });
   updateArrows();
 
   /* ---------- Modal de video ---------- */
   const modal = $('#vmodal');
   const vm = { video: $('#vm-video'), title: $('#vm-title'), desc: $('#vm-desc'), tag: $('#vm-tag') };
+
   const openVideo = ({ src, titulo, desc, tag }) => {
     vm.title.textContent = titulo;
     vm.desc.textContent = desc;
@@ -139,16 +98,36 @@
     modal.showModal();
     vm.video.play().catch(() => {});
   };
-  const closeVideo = () => {
+
+  const resetVideo = () => {
     vm.video.pause();
     vm.video.removeAttribute('src');
     vm.video.load();
-    modal.close();
   };
+
+  const closeVideo = () => modal.close();
+  modal.addEventListener('close', resetVideo);
+
+  // Fallback de light-dismiss para navegadores sin soporte de <dialog closedby="any">
+  if (!('closedBy' in HTMLDialogElement.prototype)) {
+    modal.addEventListener('click', (event) => {
+      if (event.target !== modal) return;
+      const rect = modal.getBoundingClientRect();
+      const isDialogContent =
+        rect.top <= event.clientY &&
+        event.clientY <= rect.top + rect.height &&
+        rect.left <= event.clientX &&
+        event.clientX <= rect.left + rect.width;
+      if (isDialogContent) return;
+      modal.close();
+    });
+  }
+
   rail.addEventListener('click', (e) => {
     const card = e.target.closest('.pcard');
     if (!card) return;
     const p = VIDEOS[+card.dataset.i];
+    if (!p) return;
     openVideo({
       src: `videos/${p.cat === 'general' ? '' : 'procesos/'}${p.file}.mp4`,
       titulo: `${p.n} · ${p.titulo}`,
@@ -156,48 +135,24 @@
       tag: ETAPAS[p.cat],
     });
   });
+
   $$('[data-open-hero]').forEach((el) => {
-    el.addEventListener('click', () => openVideo({ ...VIDEO_PRINCIPAL, tag: 'Video principal' }));
-    if (el.getAttribute('role') === 'button') {
-      el.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          el.click();
-        }
-      });
-    }
-  });
-  $('#vm-close').addEventListener('click', closeVideo);
-  $('#vm-cta').addEventListener('click', closeVideo);
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeVideo();
-  });
-  modal.addEventListener('cancel', (e) => {
-    e.preventDefault();
-    closeVideo();
+    el.addEventListener('click', () => openVideo({ ...VIDEO_PRINCIPAL, tag: 'Recorrido completo' }));
   });
 
-  /* ---------- Formulario → WhatsApp ---------- */
+  $('#vm-close').addEventListener('click', closeVideo);
+  $('#vm-cta').addEventListener('click', closeVideo);
+
+  /* ---------- Formulario -> WhatsApp ---------- */
   $('#contact-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const val = (id) => $(id).value.trim();
-    const msg = `Hola IntelliApps, mi nombre es ${val('#f-name')} de la empresa ${val('#f-empresa')} (Tel: ${val('#f-phone')}). Quisiera coordinar una demostración sobre: ${val('#f-interes')}.`;
+    const val = (id) => $(id)?.value.trim() || '';
+    const msg = `Hola IntelliApps, mi nombre es ${val('#f-name')} de la empresa ${val('#f-empresa')} (Tel: ${val('#f-phone')}). Quisiera ver una demostración de: ${val('#f-interes')}.`;
     window.open(`https://wa.me/51912800115?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
   });
 
-  /* ---------- Bucle de scroll ---------- */
-  let ticking = false;
-  const onScroll = () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      onScrollNav();
-      updateManifesto();
-      if (!reduceMotion) updateHeroParallax();
-      ticking = false;
-    });
-  };
-  addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll);
-  onScroll();
+  /* ---------- Scroll ---------- */
+  addEventListener('scroll', onScrollNav, { passive: true });
+  addEventListener('resize', onScrollNav);
+  onScrollNav();
 })();

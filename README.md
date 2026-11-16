@@ -1,33 +1,40 @@
 # ERP COMERCIAL · Landing
 
-Landing de presentacion del ERP COMERCIAL de IntelliApps, construida con
-Tailwind desde CDN (`https://cdn.tailwindcss.com`) y un `css/styles.css` con
-lo que Tailwind no cubre (mockup de telefono, animaciones de scroll, formato
-de numeros).
+Landing de presentacion del ERP COMERCIAL de IntelliApps, con Tailwind desde
+CDN (`https://cdn.tailwindcss.com`) y un `css/styles.css` con lo que Tailwind
+no cubre.
 
 ## Estructura
 
 ```
 index.html            Estructura de la pagina
-css/styles.css        Estilos propios (paleta, tipografia, mockup, animaciones)
-js/videos.js          Catalogo de los 14 videos + las 12 etapas del ciclo
-js/main.js            Interacciones: nav, revelado, contadores, filtros, modal
+css/styles.css        Paleta, tipografia, tarjetas, riel de videos y modal
+js/videos.js          Las 12 etapas, los 5 equipos, los servicios y los 14 videos
+js/main.js            Interacciones: nav, revelado, filtros, riel, modal y formulario
 assets/brand/         Logos de IntelliApps
-assets/img/           Fotografias de planta
+assets/img/           Foto de planta del hero
 videos/               Version web de los 14 videos (720x1280, crf 27, faststart)
 thumbnails/           Miniatura de cada video
 ```
 
 ## Secciones
 
-1. **Hero** — propuesta de valor y el video general dentro de un mockup de telefono.
-2. **Empresa** — manifiesto con palabras que se encienden al hacer scroll, cifras y principios.
-3. **El sistema** — las cuatro etapas: recepcion, documentacion, valorizacion y cierre.
-4. **El ciclo** — las doce etapas del mineral, del porton a la factura.
-5. **Videos** — catalogo de los 14 videos, filtrable por etapa.
-6. **Antes / despues** — control en papel frente a control en el sistema.
-7. **Servicios** — desarrollo a medida, integracion con balanzas y capacitacion.
-8. **Contacto** — formulario que abre WhatsApp con el mensaje ya escrito.
+1. **Hero** — foto de planta, titular y la pantalla real del sistema encima.
+2. **Cifras** — tres datos del servicio, en una linea cada uno.
+3. **El ciclo** — las doce etapas del mineral, en una grilla de nombres.
+   Debajo, las cinco areas y que registra cada una.
+4. **Videos** — banda oscura con el catalogo de los 14 videos, filtrable por etapa.
+5. **Servicios y contacto** — que hace IntelliApps ademas del ERP, y el formulario.
+
+El criterio de la pagina es que se escanee: no hay parrafos largos ni
+comparaciones de "antes y despues". El detalle de cada proceso esta en su
+video, y el texto de la landing solo dice que hay y a quien le toca.
+
+## Paleta
+
+Base clara tipo papel (`#F5F2EA`), tinta casi negra (`#14161A`), un unico
+acento ambar (`#D8922E`) y una sola banda oscura para el catalogo de videos,
+donde las capturas necesitan un fondo oscuro para leerse.
 
 ## Actualizar los videos
 
@@ -42,3 +49,6 @@ node scripts/prepare-landing.mjs      # copia a landing/ con version web y minia
 
 El catalogo de `js/videos.js` y las rutas de `videos/` deben coincidir con los
 nombres de archivo exportados (`NN-nombre-del-proceso`).
+
+Al tocar `css/styles.css` o los scripts, subir el `?v=` del `index.html` para
+que los navegadores no sirvan la version anterior.

@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IntelliApps · ERP COMERCIAL, el sistema para comercializadoras de minerales</title>
-  <meta name="description" content="IntelliApps desarrolla software para industrias exigentes. ERP COMERCIAL: programación, recepción, balanza, leyes, valorización, blending, despachos y contabilidad de mineral en un solo sistema.">
-  <meta name="theme-color" content="#07080a">
+  <title>IntelliApps · ERP COMERCIAL para comercializadoras de minerales</title>
+  <meta name="description" content="Recepción, pesaje en balanza, cierre de leyes, valorización de compra y venta, blending y liquidación de anticipos en un solo sistema. ERP COMERCIAL, de IntelliApps.">
+  <meta name="theme-color" content="#f5f2ea">
   <link rel="icon" type="image/svg+xml" href="assets/brand/isotipo.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -18,338 +18,181 @@
       theme: {
         extend: {
           colors: {
-            void: "#07080A",
-            coal: "#0C0D10",
-            surface: "#131519",
-            surfaceAlt: "#191C21",
-            line: "#282C33",
-            ink: "#F4F5F7",
-            dim: "#A6ABB4",
-            mute: "#6B717B",
-            amber: { DEFAULT: "#E0A247", bright: "#F5C77C", deep: "#8F5F1E" },
+            bone: "#F5F2EA",
+            surface: "#FFFFFF",
+            ink: "#14161A",
+            dim: "#4C515A",
+            mute: "#767C85",
+            line: "#E4DFD4",
+            amber: { DEFAULT: "#D8922E", bright: "#E39D37", deep: "#9E5D0C" },
+            dark: "#14161A",
           },
           fontFamily: {
             sans: ["Inter", "system-ui", "sans-serif"],
             tight: ["Inter Tight", "Inter", "sans-serif"],
-            serif: ["Instrument Serif", "serif"],
             mono: ["JetBrains Mono", "monospace"],
           },
         },
       },
     };
   </script>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=7">
 </head>
-<body class="bg-void text-ink font-sans antialiased">
+<body class="font-sans antialiased">
 
-  <!-- Iconos reutilizables -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M2 8h12m0 0L9 3m5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-left" viewBox="0 0 16 16"><path d="M14 8H2m0 0 5-5M2 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-play" viewBox="0 0 12 12"><path d="M2 1v10l9-5z" fill="currentColor"/></symbol>
-    <symbol id="i-check" viewBox="0 0 20 20"><path d="m4 10.5 4 4 8-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-x" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 7h11v9H2zM13 10h4l4 4v2h-8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="18" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
-    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M4 20h16M6 20V8l6-4 6 4v12M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
-    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 3v6L4 19a1.5 1.5 0 0 0 1.3 2h13.4a1.5 1.5 0 0 0 1.3-2L14 9V3M9 3h6M7.5 14h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
   </svg>
 
-  <!-- NAVEGACIÓN -->
+  <!-- NAV -->
   <header class="nav" id="nav">
-    <div class="mx-auto max-w-[1280px] px-6 lg:px-10 h-[72px] flex items-center justify-between">
-      <a href="#inicio" class="shrink-0" aria-label="IntelliApps, inicio"><img src="assets/brand/logo-blanco.svg" alt="IntelliApps" class="h-8 w-auto"></a>
-      <nav class="hidden md:flex items-center gap-8 text-sm" aria-label="Principal">
-        <a href="#empresa" class="link-quiet">Empresa</a>
-        <a href="#sistema" class="link-quiet">El sistema</a>
-        <a href="#videos" class="link-quiet">Videos</a>
-        <a href="#ciclo" class="link-quiet">El ciclo</a>
-        <a href="#servicios" class="link-quiet">Servicios</a>
+    <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10 h-16 lg:h-[72px] flex items-center justify-between gap-4">
+      <a href="#inicio" class="shrink-0" aria-label="IntelliApps, inicio"><img src="assets/brand/logo.svg" alt="IntelliApps" class="h-7 lg:h-8 w-auto"></a>
+      <nav class="hidden lg:flex items-center gap-9 text-[0.84rem]" aria-label="Principal">
+        <a href="#ciclo" class="nav-link">Qué resuelve</a>
+        <a href="#videos" class="nav-link">Demos</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
       </nav>
-      <a href="#contacto" class="btn btn-light">Solicitar demo</a>
+      <a href="#contacto" class="btn btn-accent btn-sm">Solicitar demo</a>
     </div>
   </header>
 
   <main>
 
-    <!-- 1 · HERO -->
-    <section class="hero relative" id="inicio">
-      <div class="hero-bg" data-parallax><img src="assets/img/g04-balanza.jpg" alt=""></div>
-      <div class="mx-auto max-w-[1280px] px-6 lg:px-10 py-20 lg:py-28 relative z-10">
-        <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-16 lg:gap-12 items-center">
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10 hero-grid">
+        <div class="hero-copy">
+          <p class="kicker">ERP COMERCIAL · Para comercializadoras de minerales</p>
+          <h1 class="hero-title">Cada lote de mineral, con su peso, su ley y su valor.</h1>
+          <p class="hero-sub">Recepción, pesaje por partes, cierre de leyes, valorización de compra y venta, blending y liquidación de anticipos en un solo sistema.</p>
+
+          <div class="hero-actions">
+            <a href="#contacto" class="btn btn-accent">Solicitar demo <svg><use href="#i-arrow"/></svg></a>
+            <button class="btn btn-line" type="button" data-open-hero><span class="btn-play"><svg><use href="#i-play"/></svg></span>Ver recorrido (1 min)</button>
+          </div>
+        </div>
+
+        <div class="hero-stage">
+          <button class="device-frame" type="button" data-open-hero aria-label="Reproducir recorrido completo del ERP COMERCIAL">
+            <video src="videos/00-general.mp4" poster="thumbnails/00-general.jpg" muted loop playsinline preload="metadata" autoplay></video>
+            <span class="device-play"><svg><use href="#i-play"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUE RESUELVE -->
+    <section class="section on-surface" id="ciclo">
+      <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10">
+        <div class="section-head">
+          <p class="kicker">Operación completa</p>
+          <h2 class="h-lg mt-2">Sin cruces en Excel ni fugas entre áreas.</h2>
+        </div>
+
+        <div class="pillars mt-8" id="pillars"></div>
+      </div>
+    </section>
+
+    <!-- DEMOS EN VIDEO -->
+    <section class="section on-dark" id="videos">
+      <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10">
+        <div class="videos-head">
           <div>
-            <span class="eyebrow" data-reveal>ERP COMERCIAL · Para comercializadoras de minerales</span>
-            <h1 class="display h-xl mt-6" data-reveal style="--d:.08s">Todo tu mineral,<br><em>en un solo sistema.</em></h1>
-            <p class="lead mt-7" data-reveal style="--d:.16s">Programación, recepción, balanza, guías, leyes, valorización, blending, despachos y contabilidad. La operación completa de compra y venta de mineral, sin cuadernos y sin cruces manuales.</p>
-            <div class="flex flex-wrap gap-4 mt-10" data-reveal style="--d:.24s">
-              <a href="#contacto" class="btn btn-light">Solicitar demostración <svg><use href="#i-arrow"/></svg></a>
-              <button class="btn btn-ghost" data-open-hero><span class="btn-play-ico"><svg><use href="#i-play"/></svg></span>Ver el ciclo completo</button>
-            </div>
-            <div class="hero-meta mt-14" data-reveal style="--d:.32s">
-              <div><b>13 procesos</b>documentados en video</div>
-              <div><b>4 etapas</b>recepción, valorización, despacho y contabilidad</div>
-              <div><b>1 base de datos</b>compartida por comercial y contabilidad</div>
-            </div>
+            <p class="kicker">Demostraciones</p>
+            <h2 class="h-lg mt-2">Cada proceso, en un minuto.</h2>
           </div>
-
-          <div class="hero-stage" data-reveal style="--d:.2s">
-            <div class="phone" id="hero-phone" data-open-hero role="button" tabindex="0" aria-label="Reproducir el video general del ERP COMERCIAL">
-              <div class="phone-screen">
-                <video src="videos/00-general.mp4" poster="thumbnails/00-general.jpg" muted loop playsinline preload="metadata" autoplay></video>
-              </div>
-              <div class="phone-glare"></div>
+          <div class="videos-controls">
+            <div class="filters" id="filters" role="group" aria-label="Filtrar demos por etapa"></div>
+            <div class="hidden sm:flex gap-2 shrink-0">
+              <button class="arrow-btn" id="rail-prev" aria-label="Anterior"><svg><use href="#i-left"/></svg></button>
+              <button class="arrow-btn" id="rail-next" aria-label="Siguiente"><svg><use href="#i-arrow"/></svg></button>
             </div>
-            <div class="chip chip-1"><span class="chip-ico ok"><svg><use href="#i-check"/></svg></span><div><b>Lote LT-0001 pesado</b><span>24 830 kg · 2 partes</span></div></div>
-            <div class="chip chip-2"><span class="chip-ico warn"><svg><use href="#i-flask"/></svg></span><div><b>Ley de cierre</b><span>Au 3.42 g/t · Ag 21.50 g/t</span></div></div>
-            <div class="chip chip-3"><span class="chip-ico blue"><svg><use href="#i-scale"/></svg></span><div><b>Despacho programado</b><span>3 vehículos · 57.16 t</span></div></div>
-          </div>
-        </div>
-      </div>
-      <div class="scroll-hint" aria-hidden="true">Scroll<i></i></div>
-    </section>
-
-    <!-- 2 · EMPRESA / MANIFIESTO -->
-    <section class="section on-paper" id="empresa">
-      <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-        <span class="eyebrow" data-reveal>IntelliApps · Soluciones Informáticas</span>
-        <p class="manifesto-text mt-10" id="manifesto">Comprar y vender mineral no es solo mover camiones. Es que cada peso, cada guía y cada ley quede registrada en el mismo lugar, para que la compra, el despacho y la factura cierren sin discusiones.</p>
-
-        <div class="stats mt-16">
-          <div class="stat" data-reveal><div class="stat-num"><span data-count="13">13</span></div><p class="stat-label">procesos del ciclo de mineral, de la entrada a la factura</p></div>
-          <div class="stat" data-reveal style="--d:.1s"><div class="stat-num"><span data-count="4">4</span></div><p class="stat-label">etapas de control: recepción, valorización, despacho y contabilidad</p></div>
-          <div class="stat" data-reveal style="--d:.2s"><div class="stat-num"><span data-count="1">1</span></div><p class="stat-label">base de datos compartida entre comercial, planta y contabilidad</p></div>
-        </div>
-
-        <div class="principles mt-16">
-          <article class="principle" data-reveal><span class="principle-n">01</span><h3>Cada tarea en su pantalla</h3><p>Un módulo por responsabilidad: vigilancia, balanza, laboratorio, comercial y contabilidad. Sin menús de veinte opciones.</p></article>
-          <article class="principle" data-reveal style="--d:.1s"><span class="principle-n">02</span><h3>Trazabilidad de punta a punta</h3><p>El lote, su guía, su ley, su valor y su comprobante quedan enlazados. Se sigue el mineral sin reconstruir la historia.</p></article>
-          <article class="principle" data-reveal style="--d:.2s"><span class="principle-n">03</span><h3>Hecho para la operación real</h3><p>Pesos, leyes y anticipos se registran como los usa la planta: por unidad, por lote y por parte.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3 · EL SISTEMA -->
-    <section class="section on-ink" id="sistema">
-      <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-        <div class="section-head">
-          <span class="eyebrow" data-reveal>ERP COMERCIAL · ERP especializado en mineral</span>
-          <h2 class="display h-lg" data-reveal style="--d:.08s">Cuatro etapas.<br><em>Una sola fuente de verdad.</em></h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mt-16">
-          <article class="mod-card" data-reveal>
-            <span class="mod-tag">Etapa 01 — Recepción</span>
-            <img class="mod-thumb" src="assets/img/g03-recepcion.jpg" alt="Camión entrando a planta" loading="lazy">
-            <h3>Del portón a la balanza.</h3>
-            <p>La llegada se programa, vigilancia registra el ingreso y la balanza pesa cada unidad con tara, bruto y neto.</p>
-            <ul>
-              <li><svg><use href="#i-check"/></svg>Programación de unidades</li>
-              <li><svg><use href="#i-check"/></svg>Recepción de unidades y visitas</li>
-              <li><svg><use href="#i-check"/></svg>Balanza con lotes particionados</li>
-            </ul>
-          </article>
-
-          <article class="mod-card" data-reveal style="--d:.1s">
-            <span class="mod-tag">Etapa 02 — Documentación</span>
-            <img class="mod-thumb" src="assets/img/g06-guias.jpg" alt="Guía de transporte" loading="lazy">
-            <h3>Cada parte, con su nombre.</h3>
-            <p>El lote se valida y se distribuye en partes, con su vehículo y su guía. Las leyes se cierran y se acuerdan.</p>
-            <ul>
-              <li><svg><use href="#i-check"/></svg>Validación y distribución</li>
-              <li><svg><use href="#i-check"/></svg>Guías de transporte y remisión</li>
-              <li><svg><use href="#i-check"/></svg>Cierre de leyes y ensayos</li>
-            </ul>
-          </article>
-
-          <article class="mod-card" data-reveal style="--d:.2s">
-            <span class="mod-tag">Etapa 03 — Valorización</span>
-            <img class="mod-thumb" src="assets/img/g09-blending.jpg" alt="Blending de mineral" loading="lazy">
-            <h3>El precio, con su respaldo.</h3>
-            <p>La compra se valoriza en oro y plata con las leyes acordadas. El blending arma la mezcla que el cliente pide.</p>
-            <ul>
-              <li><svg><use href="#i-check"/></svg>Valorización de compra</li>
-              <li><svg><use href="#i-check"/></svg>Blending inteligente y manual</li>
-              <li><svg><use href="#i-check"/></svg>Maquila, precio internacional y penalidades</li>
-            </ul>
-          </article>
-
-          <article class="mod-card" data-reveal style="--d:.3s">
-            <span class="mod-tag">Etapa 04 — Cierre</span>
-            <img class="mod-thumb" src="assets/img/g13-contabilidad.jpg" alt="Contabilidad de mineral" loading="lazy">
-            <h3>Del despacho a la factura.</h3>
-            <p>Se programa el envío, se registra la valorización del cliente y se cierran los comprobantes con sus anticipos.</p>
-            <ul>
-              <li><svg><use href="#i-check"/></svg>Programación de despachos</li>
-              <li><svg><use href="#i-check"/></svg>Valorización de venta</li>
-              <li><svg><use href="#i-check"/></svg>Anticipos y contabilidad de compra y venta</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4 · EL CICIO -->
-    <section class="section on-paper" id="ciclo">
-      <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-        <div class="section-head">
-          <span class="eyebrow" data-reveal>El ciclo completo</span>
-          <h2 class="display h-lg" data-reveal style="--d:.08s">De la programación<br>a la <em>factura</em>.</h2>
-          <p class="lead" data-reveal style="--d:.16s">Doce etapas, un solo sistema. Cada una queda registrada y alimentando la siguiente.</p>
-        </div>
-
-        <ol class="ciclo mt-16" id="ciclo-grid"></ol>
-      </div>
-    </section>
-
-    <!-- 5 · CATÁLOGO DE VIDEOS -->
-    <section class="section on-ink" id="videos">
-      <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-        <div class="section-head">
-          <span class="eyebrow" data-reveal>Guía práctica en video</span>
-          <h2 class="display h-lg" data-reveal style="--d:.08s">Cada proceso del sistema,<br><em>paso a paso.</em></h2>
-          <p class="lead" data-reveal style="--d:.16s">Mira cómo se registran los datos en pantalla y cómo queda resuelta cada situación del día a día.</p>
-        </div>
-        <div class="catalog-bar">
-          <div class="filters" id="filters" role="group" aria-label="Filtrar por etapa"></div>
-          <div class="rail-arrows">
-            <button class="arrow-btn" id="rail-prev" aria-label="Anterior"><svg><use href="#i-left"/></svg></button>
-            <button class="arrow-btn" id="rail-next" aria-label="Siguiente"><svg><use href="#i-arrow"/></svg></button>
           </div>
         </div>
       </div>
       <div class="rail" id="rail"></div>
     </section>
 
-    <!-- 6 · ANTES / DESPUÉS -->
-    <section class="section on-paper">
-      <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-        <div class="section-head">
-          <span class="eyebrow" data-reveal>El cambio</span>
-          <h2 class="display h-lg" data-reveal style="--d:.08s">Seguir con cuadernos<br>tiene <em>costo</em>.</h2>
-        </div>
-        <div class="versus">
-          <article class="panel panel-old" data-reveal>
-            <img src="assets/img/g01-cuaderno.jpg" alt="" loading="lazy">
-            <span class="tag">Control tradicional en papel</span>
-            <h3>Lo que pasa cuando el mineral vive en cuadernos</h3>
-            <ul>
-              <li><svg><use href="#i-x"/></svg>La llegada del camión se conoce cuando ya está en el portón.</li>
-              <li><svg><use href="#i-x"/></svg>Las guías se anotan a mano y se pierden con el turno.</li>
-              <li><svg><use href="#i-x"/></svg>El peso real y el peso de la guía nunca coinciden del todo.</li>
-              <li><svg><use href="#i-x"/></svg>Las leyes se acuerdan de memoria y se discuten al facturar.</li>
-              <li><svg><use href="#i-x"/></svg>Nadie sabe cuánto de un anticipo se usó y cuánto queda.</li>
-            </ul>
-          </article>
-          <article class="panel panel-new" data-reveal style="--d:.12s">
-            <span class="tag">Con IntelliApps · ERP COMERCIAL</span>
-            <h3>Lo que logras con un sistema integrado</h3>
-            <ul>
-              <li><svg><use href="#i-check"/></svg>La unidad se programa antes de llegar y vigilancia solo confirma.</li>
-              <li><svg><use href="#i-check"/></svg>Tara, bruto y neto quedan con la guía que los respalda.</li>
-              <li><svg><use href="#i-check"/></svg>La ley de cierre queda escrita y acordada con el proveedor.</li>
-              <li><svg><use href="#i-check"/></svg>El despacho se divide en vehículos con su guía y su llegada confirmada.</li>
-              <li><svg><use href="#i-check"/></svg>Cada anticipo muestra en qué comprobante se usó.</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
+    <!-- CONTACTO -->
+    <section class="section on-bone" id="contacto">
+      <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10">
+        <div class="contact-grid">
+          <div>
+            <p class="kicker">Implementación y demo</p>
+            <h2 class="h-lg mt-2">Te lo mostramos con tus propios lotes.</h2>
+            <p class="sub mt-3">Adaptado a tus reglas de negocio, integrado con tu balanza y con capacitación presencial para vigilancia, laboratorio, comercial y contabilidad.</p>
 
-    <!-- 7 · SERVICIOS -->
-    <section class="section on-ink" id="servicios">
-      <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-        <div class="section-head">
-          <span class="eyebrow" data-reveal>Más allá del ERP COMERCIAL</span>
-          <h2 class="display h-lg" data-reveal style="--d:.08s">Software que se adapta<br>a <em>tu operación</em>.</h2>
-        </div>
-        <div class="bento">
-          <article class="bento-card" data-reveal>
-            <span class="tag">Web · Móvil · Nube</span>
-            <div>
-              <div class="code-sketch" aria-hidden="true"><span class="k">const</span> mineral = <span class="k">await</span> sistema.<span class="s">recibir</span>(tu_planta);</div>
-              <h3 class="mt-7">Desarrollo de software a medida</h3>
-              <p>Diseño y arquitectura de plataformas web, móviles y empresariales adaptadas exactamente a los flujos de tu negocio.</p>
+            <div class="contact-links mt-6">
+              <a href="https://wa.me/51912800115" target="_blank" rel="noopener" class="contact-row"><span>WhatsApp directo</span><b>+51 912 800 115</b></a>
+              <a href="https://intelli-apps.com" target="_blank" rel="noopener" class="contact-row"><span>Sitio web</span><b>intelli-apps.com</b></a>
             </div>
-          </article>
-          <article class="bento-card" data-reveal style="--d:.1s">
-            <img src="assets/img/p04-3-display.jpg" alt="" loading="lazy">
-            <span class="tag">Hardware + Software</span>
-            <div>
-              <h3>Integración con balanzas</h3>
-              <p>Lectura automática del peso desde la máquina de balanza, con digitación manual como alternativa cuando el equipo no está conectado.</p>
-            </div>
-          </article>
-          <article class="bento-card" data-reveal style="--d:.2s">
-            <div>
-              <span class="tag">Capacitación en campo</span>
-              <h3 class="mt-5">Transformación digital operativa</h3>
-            </div>
-            <p>Acompañamos a tu empresa del papel y las hojas de cálculo hacia una base centralizada, capacitando a vigilancia, balanza, laboratorio y administración. Sin traumas en la transición.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 8 · CONTACTO -->
-    <section class="section on-ink contact" id="contacto">
-      <div class="mx-auto max-w-[1280px] px-6 lg:px-10 contact-grid">
-        <div class="contact-copy">
-          <span class="eyebrow" data-reveal>Hablemos de tu operación</span>
-          <h2 class="display h-lg" data-reveal style="--d:.08s">¿Listo para un <em>mineral ordenado</em>?</h2>
-          <p class="lead" data-reveal style="--d:.16s">Coordinamos una demostración del ERP COMERCIAL con tu propio caso: proveedor, lote, balanza y despacho. Directo al grano.</p>
-          <div class="contact-list" data-reveal style="--d:.24s">
-            <a href="https://wa.me/51912800115" target="_blank" rel="noopener"><span>WhatsApp / Teléfono</span><b>+51 912 800 115</b></a>
-            <a href="https://intelli-apps.com" target="_blank" rel="noopener"><span>Portal web</span><b>intelli-apps.com</b></a>
           </div>
-        </div>
 
-        <form class="form" id="contact-form" data-reveal style="--d:.12s">
-          <div class="field-row"><label for="f-name">Nombre de contacto</label><input id="f-name" required placeholder="Ej: Ing. Carlos Medina" autocomplete="name"></div>
-          <div class="field-row"><label for="f-empresa">Empresa / operación</label><input id="f-empresa" required placeholder="Ej: Minera San Juan" autocomplete="organization"></div>
-          <div class="field-row"><label for="f-phone">WhatsApp / celular</label><input id="f-phone" type="tel" required placeholder="Ej: 912 345 678" autocomplete="tel"></div>
-          <div class="field-row"><label for="f-interes">¿Qué módulo te interesa?</label>
-            <select id="f-interes">
-              <option>ERP COMERCIAL · Completo</option>
-              <option>Programación y recepción de unidades</option>
-              <option>Balanza y validación de lotes</option>
-              <option>Cierre de leyes y valorización</option>
-              <option>Blending y despachos</option>
-              <option>Anticipos y contabilidad</option>
-              <option>Desarrollo de software a medida</option>
-            </select>
-          </div>
-          <button class="btn btn-amber" type="submit">Solicitar demostración por WhatsApp <svg><use href="#i-arrow"/></svg></button>
-          <p class="form-note">Te conectaremos directamente con un consultor de IntelliApps.</p>
-        </form>
+          <form class="form" id="contact-form">
+            <div class="form-row-2">
+              <div class="field-row">
+                <label for="f-name">Nombre</label>
+                <input id="f-name" required placeholder="Ing. Carlos Medina" autocomplete="name">
+              </div>
+              <div class="field-row">
+                <label for="f-empresa">Empresa</label>
+                <input id="f-empresa" required placeholder="Minera San Juan" autocomplete="organization">
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="field-row">
+                <label for="f-phone">WhatsApp</label>
+                <input id="f-phone" type="tel" required placeholder="912 345 678" autocomplete="tel">
+              </div>
+              <div class="field-row">
+                <label for="f-interes">¿Qué quieres ver primero?</label>
+                <select id="f-interes">
+                  <option value="Ciclo completo">Ciclo completo</option>
+                  <option value="Recepción y balanza">Recepción y balanza</option>
+                  <option value="Leyes, valorización y blending">Leyes, valorización y blending</option>
+                  <option value="Despachos y contabilidad">Despachos y contabilidad</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-accent w-full justify-center" type="submit">Pedir demo por WhatsApp <svg><use href="#i-arrow"/></svg></button>
+          </form>
+        </div>
       </div>
     </section>
 
   </main>
 
   <footer class="footer">
-    <div class="mx-auto max-w-[1280px] px-6 lg:px-10 footer-inner">
-      <img src="assets/brand/logo-blanco.svg" alt="IntelliApps" class="h-8 w-auto">
+    <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10 footer-inner">
+      <img src="assets/brand/logo-blanco.svg" alt="IntelliApps" class="h-6 w-auto">
       <nav aria-label="Pie de página">
-        <a href="#empresa">Empresa</a><a href="#sistema">El sistema</a><a href="#videos">Videos</a><a href="#ciclo">El ciclo</a><a href="#contacto">Contacto</a>
+        <a href="#ciclo">Qué resuelve</a>
+        <a href="#videos">Demos</a>
+        <a href="#contacto">Contacto</a>
       </nav>
-      <span>© 2026 IntelliApps. Todos los derechos reservados.</span>
+      <span>© 2026 IntelliApps</span>
     </div>
   </footer>
 
-  <!-- MODAL DE VIDEO -->
-  <dialog class="vmodal" id="vmodal" aria-labelledby="vm-title">
-    <button class="vmodal-close" id="vm-close" aria-label="Cerrar"><svg><use href="#i-x"/></svg></button>
+  <!-- MODAL -->
+  <dialog class="vmodal" id="vmodal" closedby="any" aria-labelledby="vm-title">
+    <button class="vmodal-close" id="vm-close" type="button" aria-label="Cerrar"><svg><use href="#i-close"/></svg></button>
     <div class="vmodal-body">
-      <div class="vmodal-phone"><video id="vm-video" controls playsinline></video></div>
+      <div class="vmodal-video"><video id="vm-video" controls playsinline></video></div>
       <div class="vmodal-info">
-        <span class="eyebrow" id="vm-tag">ERP COMERCIAL</span>
-        <h3 class="display h-md" id="vm-title"></h3>
+        <p class="kicker" id="vm-tag">ERP COMERCIAL</p>
+        <h3 id="vm-title"></h3>
         <p id="vm-desc"></p>
-        <a class="btn btn-light" id="vm-cta" href="#contacto">Solicitar demostración <svg><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-accent w-full sm:w-auto justify-center" id="vm-cta" href="#contacto">Solicitar demo <svg><use href="#i-arrow"/></svg></a>
       </div>
     </div>
   </dialog>
 
-  <script src="js/videos.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/videos.js?v=7"></script>
+  <script src="js/main.js?v=7"></script>
 </body>
 </html>

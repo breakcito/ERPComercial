@@ -2,7 +2,7 @@
    Fuente unica para los pilares operativos, filtros, catalogo de demos y modal. */
 
 const ETAPAS = {
-  general: 'General',
+  // general: 'General',
   recepcion: 'Recepción',
   valorizacion: 'Valorización',
   despacho: 'Despacho',

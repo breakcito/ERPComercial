@@ -11,8 +11,8 @@
   const pillarsEl = $('#pillars');
   if (pillarsEl) {
     pillarsEl.innerHTML = PILARES.map(
-      (p) => `
-      <article class="pillar">
+      (p, i) => `
+      <article class="pillar" data-reveal style="--d:${(i * 0.06).toFixed(2)}s">
         <div>
           <span class="pillar-num">${p.n}</span>
           <h3>${p.titulo}</h3>
@@ -24,6 +24,19 @@
       </article>`,
     ).join('');
   }
+
+  /* ---------- Revelado al hacer scroll ---------- */
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        revealObserver.unobserve(e.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -4% 0px' },
+  );
+  $$('[data-reveal]').forEach((el) => revealObserver.observe(el));
 
   /* ---------- Catalogo de videos ---------- */
   const rail = $('#rail');

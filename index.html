@@ -36,7 +36,7 @@
       },
     };
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=7">
+  <link rel="stylesheet" href="css/styles.css?v=8">
 </head>
 <body class="font-sans antialiased">
 
@@ -58,6 +58,7 @@
       </nav>
       <a href="#contacto" class="btn btn-accent btn-sm">Solicitar demo</a>
     </div>
+    <div class="scroll-progress" aria-hidden="true"></div>
   </header>
 
   <main>
@@ -66,17 +67,18 @@
     <section class="hero" id="inicio">
       <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10 hero-grid">
         <div class="hero-copy">
-          <p class="kicker">ERP COMERCIAL · Para comercializadoras de minerales</p>
-          <h1 class="hero-title">Cada lote de mineral, con su peso, su ley y su valor.</h1>
-          <p class="hero-sub">Recepción, pesaje por partes, cierre de leyes, valorización de compra y venta, blending y liquidación de anticipos en un solo sistema.</p>
+          <p class="kicker" data-hero-anim style="--d:.04s">ERP COMERCIAL · Para comercializadoras de minerales</p>
+          <h1 class="hero-title" data-hero-anim style="--d:.1s">Cada lote de mineral, con su peso, su ley y su valor.</h1>
+          <p class="hero-sub" data-hero-anim style="--d:.16s">Recepción, pesaje por partes, cierre de leyes, valorización de compra y venta, blending y liquidación de anticipos en un solo sistema.</p>
 
-          <div class="hero-actions">
+          <div class="hero-actions" data-hero-anim style="--d:.22s">
             <a href="#contacto" class="btn btn-accent">Solicitar demo <svg><use href="#i-arrow"/></svg></a>
             <button class="btn btn-line" type="button" data-open-hero><span class="btn-play"><svg><use href="#i-play"/></svg></span>Ver recorrido (1 min)</button>
           </div>
         </div>
 
-        <div class="hero-stage">
+        <div class="hero-stage" data-hero-anim style="--d:.18s">
+          <div class="device-glow" aria-hidden="true"></div>
           <button class="device-frame" type="button" data-open-hero aria-label="Reproducir recorrido completo del ERP COMERCIAL">
             <video src="videos/00-general.mp4" poster="thumbnails/00-general.jpg" muted loop playsinline preload="metadata" autoplay></video>
             <span class="device-play"><svg><use href="#i-play"/></svg></span>
@@ -88,7 +90,7 @@
     <!-- QUE RESUELVE -->
     <section class="section on-surface" id="ciclo">
       <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10">
-        <div class="section-head">
+        <div class="section-head" data-reveal>
           <p class="kicker">Operación completa</p>
           <h2 class="h-lg mt-2">Sin cruces en Excel ni fugas entre áreas.</h2>
         </div>
@@ -100,7 +102,7 @@
     <!-- DEMOS EN VIDEO -->
     <section class="section on-dark" id="videos">
       <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10">
-        <div class="videos-head">
+        <div class="videos-head" data-reveal>
           <div>
             <p class="kicker">Demostraciones</p>
             <h2 class="h-lg mt-2">Cada proceso, en un minuto.</h2>
@@ -121,18 +123,18 @@
     <section class="section on-bone" id="contacto">
       <div class="mx-auto max-w-[1200px] px-5 sm:px-6 lg:px-10">
         <div class="contact-grid">
-          <div>
+          <div data-reveal>
             <p class="kicker">Implementación y demo</p>
             <h2 class="h-lg mt-2">Te lo mostramos con tus propios lotes.</h2>
             <p class="sub mt-3">Adaptado a tus reglas de negocio, integrado con tu balanza y con capacitación presencial para vigilancia, laboratorio, comercial y contabilidad.</p>
 
             <div class="contact-links mt-6">
               <a href="https://wa.me/51912800115" target="_blank" rel="noopener" class="contact-row"><span>WhatsApp directo</span><b>+51 912 800 115</b></a>
-              <a href="https://intelli-apps.com" target="_blank" rel="noopener" class="contact-row"><span>Sitio web</span><b>intelli-apps.com</b></a>
+              <!-- <a href="https://intelli-apps.com" target="_blank" rel="noopener" class="contact-row"><span>Sitio web</span><b>intelli-apps.com</b></a> -->
             </div>
           </div>
 
-          <form class="form" id="contact-form">
+          <form class="form" id="contact-form" data-reveal style="--d:.08s">
             <div class="form-row-2">
               <div class="field-row">
                 <label for="f-name">Nombre</label>
@@ -192,7 +194,7 @@
     </div>
   </dialog>
 
-  <script src="js/videos.js?v=7"></script>
-  <script src="js/main.js?v=7"></script>
+  <script src="js/videos.js?v=8"></script>
+  <script src="js/main.js?v=8"></script>
 </body>
 </html>

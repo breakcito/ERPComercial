@@ -23,7 +23,7 @@ const PILARES = [
     cat: 'valorizacion',
     titulo: 'Cierre de Leyes y Compra',
     desc: 'Enlaza muestras previas con ensayos de laboratorio, acuerda la ley de cierre (Au, Ag, humedad, recuperación) y valoriza la compra con maquila, penalidades y anticipos.',
-    cta: 'Ver 3 demos de valorización',
+    cta: 'Ver 4 demos de valorización',
   },
   {
     n: '03',
@@ -113,6 +113,13 @@ const VIDEOS = [
     cat: 'valorizacion',
     titulo: 'Blending',
     desc: 'Mezcla por peso máximo, leyes requeridas y precio, o eligiendo los lotes a mano y calculando las leyes.',
+  },
+  {
+    n: '14',
+    file: '14-condiciones-comerciales',
+    cat: 'valorizacion',
+    titulo: 'Condiciones Comerciales',
+    desc: 'Reglas por proveedor o cliente, oro o plata, con rangos de ley, maquila, recuperación, consumo y riesgo aplicables como referencia en cada valorización.',
   },
   {
     n: '10',
